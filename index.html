@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#063d2b">
+<meta name="description" content="ফিসাবিলিল্লাহ ফাউন্ডেশনের ডিজিটাল ব্যবস্থাপনা">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon-192.svg" type="image/svg+xml">
+<title>Fisabilillah Foundation</title>
+<style>
+:root{--green:#063d2b;--deep:#03291e;--gold:#e5bd55;--ink:#18372c}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Noto Sans Bengali",sans-serif;background:#f3f6f2;color:var(--ink)}
+.hidden{display:none!important}button,input{font:inherit;cursor:pointer}
+.splash{min-height:100svh;background:radial-gradient(circle at 50% 25%,#13734c,#063d2b 58%,#021e16);color:white;display:grid;place-items:center;text-align:center;padding:28px}
+.brandmark{width:112px;height:112px;border:2px solid var(--gold);border-radius:28px;display:grid;place-items:center;margin:0 auto 18px;background:linear-gradient(145deg,#0b6845,#03291e);box-shadow:0 0 30px #d6ad4c55;font-size:48px}
+.splash h1{color:#f4d77d;font-family:Georgia,serif;font-size:clamp(28px,7vw,42px);line-height:1.05;margin:0}
+.splash p{margin:14px 0 28px;color:#fff4d1}.goldline{width:130px;height:3px;background:var(--gold);margin:18px auto;border-radius:9px}
+.primary{background:var(--gold);color:#183322;border:0;border-radius:12px;padding:13px 20px;font-weight:800}
+.secondary{background:transparent;color:white;border:1px solid #e5bd55;border-radius:12px;padding:12px 18px;font-weight:700;margin:8px}
+.login{min-height:100svh;display:grid;place-items:center;padding:20px;background:linear-gradient(150deg,#eaf2e9,#fff)}
+.panel{width:min(100%,420px);background:white;border-radius:24px;padding:26px;box-shadow:0 12px 40px #063d2b18}
+.panel h2{color:var(--green);margin:0 0 8px}.muted{color:#718078;font-size:14px}
+label{display:block;font-weight:700;margin:17px 0 7px}input{width:100%;padding:13px;border:1px solid #d5e0d8;border-radius:11px;outline-color:var(--gold)}
+.full{width:100%;margin-top:20px}.demo{font-size:12px;color:#718078;margin-top:14px;line-height:1.6}
+.app{min-height:100svh}.topbar{background:var(--green);color:white;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:3}
+.brand{font-weight:800}.brand small{display:block;color:#e9ce83;font-weight:500;font-size:11px}.avatar{border:1px solid var(--gold);border-radius:50%;width:38px;height:38px;display:grid;place-items:center;color:var(--gold)}
+main{max-width:900px;margin:auto;padding:18px 16px 95px}.welcome{background:linear-gradient(120deg,#07563a,#063322);color:white;border:1px solid #caa74c;border-radius:20px;padding:22px;position:relative;overflow:hidden}
+.welcome h2{color:#f4d77d;margin:0 0 8px}.welcome p{margin:0;max-width:85%;line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.stat,.tile{background:white;border-radius:16px;padding:15px 10px;text-align:center;box-shadow:0 3px 15px #0b392014}
+.stat b{display:block;color:var(--green);font-size:22px}.stat span{font-size:12px;color:#65756b}
+.section-title{margin:24px 2px 12px;color:var(--green)}.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.tile{border:1px solid #e7ece7;color:var(--ink);min-height:104px}.ico{font-size:27px;display:block;margin-bottom:7px}.tile strong{font-size:13px}
+.notice{background:#fff8e5;border-left:4px solid var(--gold);padding:14px;border-radius:10px;font-size:13px;line-height:1.5}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #e4eae4;display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom));z-index:4}
+.bottom button{background:none;border:0;color:#52645a;font-size:11px}.bottom span{display:block;font-size:20px}
+.page{background:white;border-radius:18px;padding:20px;box-shadow:0 3px 15px #0b392014}.back{border:0;background:#edf4ee;color:var(--green);border-radius:10px;padding:9px 13px;margin-bottom:15px}
+footer{text-align:center;color:#758278;font-size:11px;margin-top:25px}
+@media(min-width:650px){main{padding-top:26px}.tiles{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<section id="splash" class="splash"><div>
+ <div class="brandmark">☪</div><h1>Fisabilillah<br>Foundation</h1><div class="goldline"></div>
+ <p>মানবতার সেবায়, আল্লাহর সন্তুষ্টির জন্য</p>
+ <button class="primary" onclick="showLogin()">শুরু করুন</button>
+ <div><button id="installBtn" class="secondary hidden">মোবাইলে ইনস্টল করুন</button></div>
+</div></section>
+<section id="login" class="login hidden"><div class="panel">
+ <div class="brandmark" style="width:76px;height:76px;font-size:34px">☪</div>
+ <h2>লগইন করুন</h2><div class="muted">ফিসাবিলিল্লাহ ফাউন্ডেশন ডিজিটাল ব্যবস্থাপনা</div>
+ <label for="member">মোবাইল নম্বর / সদস্য ID</label><input id="member" placeholder="আপনার মোবাইল নম্বর বা ID">
+ <label for="pass">পাসওয়ার্ড</label><input id="pass" type="password" placeholder="পাসওয়ার্ড লিখুন">
+ <button class="primary full" onclick="login()">লগইন</button>
+ <div class="demo">ডেমো সংস্করণ: যেকোনো তথ্য দিয়ে প্রবেশ করা যাবে। এটি বাস্তব অ্যাকাউন্ট বা নিরাপদ সার্ভার-লগইন নয়।</div>
+ </div></section>
+<section id="app" class="app hidden">
+ <header class="topbar"><div class="brand">Fisabilillah Foundation<small>মানবতার সেবায়, আল্লাহর সন্তুষ্টির জন্য</small></div><div class="avatar">☪</div></header>
+ <main id="content">
+  <section class="welcome"><h2>আসসালামু আলাইকুম</h2><p>ফিসাবিলিল্লাহ ফাউন্ডেশনের ডিজিটাল ব্যবস্থাপনা ব্যবস্থায় আপনাকে স্বাগতম।</p></section>
+  <div class="stats"><div class="stat"><b>—</b><span>সদস্য</span></div><div class="stat"><b>৳ —</b><span>মোট অনুদান</span></div><div class="stat"><b>—</b><span>চলমান প্রকল্প</span></div></div>
+  <h3 class="section-title">প্রধান মডিউল</h3><div class="tiles">
+   <button class="tile" onclick="openPage('সদস্য ব্যবস্থাপনা','সদস্য নিবন্ধন, সদস্য তালিকা, সদস্য ID ও প্রোফাইল ব্যবস্থাপনা এখানে যুক্ত হবে।')"><span class="ico">👥</span><strong>সদস্য ব্যবস্থাপনা</strong></button>
+   <button class="tile" onclick="openPage('অনুদান ও হিসাব','অনুদান, আয়-ব্যয়, রসিদ এবং আর্থিক রিপোর্ট এখানে যুক্ত হবে।')"><span class="ico">💳</span><strong>অনুদান ও হিসাব</strong></button>
+   <button class="tile" onclick="openPage('মানবিক প্রকল্প','শিক্ষা, চিকিৎসা, অসহায় সহায়তা ও সামাজিক প্রকল্পের তথ্য এখানে থাকবে।')"><span class="ico">🤲</span><strong>মানবিক প্রকল্প</strong></button>
+   <button class="tile" onclick="openPage('রক্তদাতা নেটওয়ার্ক','স্বেচ্ছায় রক্তদাতার তথ্য ও রক্তের গ্রুপের তালিকা এখানে থাকবে।')"><span class="ico">🩸</span><strong>রক্তদাতা নেটওয়ার্ক</strong></button>
+   <button class="tile" onclick="openPage('নোটিশ ও ঘোষণা','ফাউন্ডেশনের নোটিশ, সভা ও কার্যক্রমের ঘোষণা এখানে প্রকাশ হবে।')"><span class="ico">🔔</span><strong>নোটিশ ও ঘোষণা</strong></button>
+   <button class="tile" onclick="openPage('রিপোর্ট','মাসিক, বার্ষিক ও প্রকল্পভিত্তিক রিপোর্ট এখানে দেখা যাবে।')"><span class="ico">📊</span><strong>রিপোর্ট</strong></button>
+  </div>
+  <h3 class="section-title">সর্বশেষ নোটিশ</h3><div class="notice">এখনো কোনো নোটিশ প্রকাশ করা হয়নি।</div>
+  <footer>ঠিকানা: জামতলী, পিরিজপুর, বাজিতপুর, কিশোরগঞ্জ<br>© Fisabilillah Foundation</footer>
+ </main>
+ <nav class="bottom"><button onclick="home()"><span>⌂</span>হোম</button><button onclick="openPage('প্রকল্প','ফাউন্ডেশনের সকল প্রকল্প এখানে থাকবে।')"><span>🤲</span>প্রকল্প</button><button onclick="openPage('রিপোর্ট','আয়-ব্যয় ও কার্যক্রমের রিপোর্ট এখানে থাকবে।')"><span>▥</span>রিপোর্ট</button><button onclick="openPage('প্রোফাইল','নিজের নাম ও প্রোফাইল পরে যুক্ত করা যাবে।')"><span>♙</span>প্রোফাইল</button></nav>
+</section>
+<script>
+const $=id=>document.getElementById(id);
+function showLogin(){$('splash').classList.add('hidden');$('login').classList.remove('hidden')}
+function login(){if(!$('member').value.trim()||!$('pass').value.trim()){alert('মোবাইল নম্বর/সদস্য ID এবং পাসওয়ার্ড লিখুন।');return}$('login').classList.add('hidden');$('app').classList.remove('hidden')}
+function openPage(title,desc){$('content').innerHTML=`<section class="page"><button class="back" onclick="home()">← ফিরে যান</button><h2>${title}</h2><p>${desc}</p><p class="muted">এই অংশটি পরবর্তী উন্নয়ন ধাপে কার্যকর করা হবে।</p></section>`;window.scrollTo(0,0)}
+function home(){location.reload()}
+let installPrompt;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('installBtn').classList.remove('hidden')});
+$('installBtn').addEventListener('click',async()=>{if(!installPrompt){alert('Chrome মেনু থেকে “Add to Home screen” নির্বাচন করুন।');return}installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installBtn').classList.add('hidden')});
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+</script>
+</body></html>
