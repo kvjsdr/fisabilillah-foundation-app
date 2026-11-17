@@ -83,4 +83,24 @@ window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installProm
 $('installBtn').addEventListener('click',async()=>{if(!installPrompt){alert('Chrome মেনু থেকে “Add to Home screen” নির্বাচন করুন।');return}installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installBtn').classList.add('hidden')});
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
 </script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyASi7O6ZpDSVtEACqbHlPiYtCECpGJENDs",
+    authDomain: "fisabilillah-foundation.firebaseapp.com",
+    projectId: "fisabilillah-foundation",
+    storageBucket: "fisabilillah-foundation.firebasestorage.app",
+    messagingSenderId: "441554340093",
+    appId: "1:441554340093:web:629178e90714b54f0ad694"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  console.log("Firebase connected");
+</script>
 </body></html>
