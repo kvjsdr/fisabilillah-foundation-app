@@ -113,7 +113,31 @@ const $=id=>document.getElementById(id);
 function showSplash(){$('application').classList.add('hidden');$('login').classList.add('hidden');$('app').classList.add('hidden');$('splash').classList.remove('hidden')}
 function showLogin(){$('splash').classList.add('hidden');$('application').classList.add('hidden');$('login').classList.remove('hidden')}
 function showApplication(){$('splash').classList.add('hidden');$('login').classList.add('hidden');$('application').classList.remove('hidden')}
-function login(){if(!$('member').value.trim()||!$('pass').value.trim()){alert('মোবাইল নম্বর/সদস্য ID এবং পাসওয়ার্ড লিখুন।');return}$('login').classList.add('hidden');$('app').classList.remove('hidden')}
+ async function login(){
+  const email = $('member').value.trim();
+  const password = $('pass').value.trim();
+
+  if(!email || !password){
+    alert('ইমেইল ও পাসওয়ার্ড লিখুন।');
+    return;
+  }
+
+  try {
+    const user = await window.foundationLogin(email, password);
+
+    if(user.email !== 'kvjsdr@gmail.com'){
+      alert('এই অ্যাকাউন্ট Super Admin নয়।');
+      return;
+    }
+
+    $('login').classList.add('hidden');
+    $('app').classList.remove('hidden');
+
+  } catch(error) {
+    alert('লগইন হয়নি। ইমেইল ও পাসওয়ার্ড যাচাই করুন।');
+    console.error(error);
+  }
+}
 function openPage(title,desc){$('content').innerHTML=`<section class="page"><button class="back" onclick="home()">← ফিরে যান</button><h2>${title}</h2><p>${desc}</p><p class="muted">এই অংশটি পরবর্তী উন্নয়ন ধাপে কার্যকর করা হবে।</p></section>`;window.scrollTo(0,0)}
 function home(){location.reload()}
 let installPrompt;
@@ -148,6 +172,7 @@ $('applicationForm').addEventListener('submit',async e=>{
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+ import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
   import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -160,8 +185,12 @@ $('applicationForm').addEventListener('submit',async e=>{
   };
 
   const firebaseApp = initializeApp(firebaseConfig);
-  getAuth(firebaseApp);
+  const auth = getAuth(firebaseApp);
   const db = getFirestore(firebaseApp);
+ window.foundationLogin = async function(email, password) {
+  const result = await signInWithEmailAndPassword(auth, email, password);
+  return result.user;
+};
 
   window.saveFoundationApplication = async function(formData) {
     await addDoc(collection(db, "applications"), {
