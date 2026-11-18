@@ -11,18 +11,22 @@
 <style>
 :root{--green:#063d2b;--deep:#03291e;--gold:#e5bd55;--ink:#18372c}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,"Noto Sans Bengali",sans-serif;background:#f3f6f2;color:var(--ink)}
-.hidden{display:none!important}button,input{font:inherit;cursor:pointer}
+.hidden{display:none!important}button,input,select{font:inherit}
 .splash{min-height:100svh;background:radial-gradient(circle at 50% 25%,#13734c,#063d2b 58%,#021e16);color:white;display:grid;place-items:center;text-align:center;padding:28px}
 .brandmark{width:112px;height:112px;border:2px solid var(--gold);border-radius:28px;display:grid;place-items:center;margin:0 auto 18px;background:linear-gradient(145deg,#0b6845,#03291e);box-shadow:0 0 30px #d6ad4c55;font-size:48px}
 .splash h1{color:#f4d77d;font-family:Georgia,serif;font-size:clamp(28px,7vw,42px);line-height:1.05;margin:0}
 .splash p{margin:14px 0 28px;color:#fff4d1}.goldline{width:130px;height:3px;background:var(--gold);margin:18px auto;border-radius:9px}
 .primary{background:var(--gold);color:#183322;border:0;border-radius:12px;padding:13px 20px;font-weight:800}
 .secondary{background:transparent;color:white;border:1px solid #e5bd55;border-radius:12px;padding:12px 18px;font-weight:700;margin:8px}
-.login{min-height:100svh;display:grid;place-items:center;padding:20px;background:linear-gradient(150deg,#eaf2e9,#fff)}
-.panel{width:min(100%,420px);background:white;border-radius:24px;padding:26px;box-shadow:0 12px 40px #063d2b18}
+.login,.application{min-height:100svh;display:grid;place-items:center;padding:20px;background:linear-gradient(150deg,#eaf2e9,#fff)}
+.panel{width:min(100%,520px);background:white;border-radius:24px;padding:26px;box-shadow:0 12px 40px #063d2b18}
 .panel h2{color:var(--green);margin:0 0 8px}.muted{color:#718078;font-size:14px}
-label{display:block;font-weight:700;margin:17px 0 7px}input{width:100%;padding:13px;border:1px solid #d5e0d8;border-radius:11px;outline-color:var(--gold)}
+label{display:block;font-weight:700;margin:15px 0 7px}
+input,select{width:100%;padding:13px;border:1px solid #d5e0d8;border-radius:11px;outline-color:var(--gold);background:white}
 .full{width:100%;margin-top:20px}.demo{font-size:12px;color:#718078;margin-top:14px;line-height:1.6}
+.formgrid{display:grid;grid-template-columns:1fr;gap:0}
+.form-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.backbtn{background:#edf4ee;color:var(--green);border:0;border-radius:10px;padding:11px 14px;font-weight:700}
 .app{min-height:100svh}.topbar{background:var(--green);color:white;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:3}
 .brand{font-weight:800}.brand small{display:block;color:#e9ce83;font-weight:500;font-size:11px}.avatar{border:1px solid var(--gold);border-radius:50%;width:38px;height:38px;display:grid;place-items:center;color:var(--gold)}
 main{max-width:900px;margin:auto;padding:18px 16px 95px}.welcome{background:linear-gradient(120deg,#07563a,#063322);color:white;border:1px solid #caa74c;border-radius:20px;padding:22px;position:relative;overflow:hidden}
@@ -36,16 +40,47 @@ main{max-width:900px;margin:auto;padding:18px 16px 95px}.welcome{background:line
 .bottom button{background:none;border:0;color:#52645a;font-size:11px}.bottom span{display:block;font-size:20px}
 .page{background:white;border-radius:18px;padding:20px;box-shadow:0 3px 15px #0b392014}.back{border:0;background:#edf4ee;color:var(--green);border-radius:10px;padding:9px 13px;margin-bottom:15px}
 footer{text-align:center;color:#758278;font-size:11px;margin-top:25px}
-@media(min-width:650px){main{padding-top:26px}.tiles{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:650px){main{padding-top:26px}.tiles{grid-template-columns:repeat(3,1fr)}.formgrid{grid-template-columns:1fr 1fr;column-gap:14px}.span2{grid-column:1/-1}}
 </style>
 </head>
 <body>
 <section id="splash" class="splash"><div>
  <div class="brandmark">☪</div><h1>Fisabilillah<br>Foundation</h1><div class="goldline"></div>
  <p>মানবতার সেবায়, আল্লাহর সন্তুষ্টির জন্য</p>
- <button class="primary" onclick="showLogin()">শুরু করুন</button>
+ <button class="primary" onclick="showLogin()">লগইন করুন</button>
+ <div><button class="secondary" onclick="showApplication()">সদস্য হতে আবেদন করুন</button></div>
  <div><button id="installBtn" class="secondary hidden">মোবাইলে ইনস্টল করুন</button></div>
 </div></section>
+
+<section id="application" class="application hidden"><div class="panel">
+ <h2>সদস্য হওয়ার আবেদন</h2>
+ <p class="muted">সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন। আবেদনটি যাচাইয়ের জন্য ফাউন্ডেশনের কাছে পাঠানো হবে।</p>
+ <form id="applicationForm">
+  <div class="formgrid">
+   <div><label for="fullName">সদস্যের পূর্ণ নাম *</label><input id="fullName" name="fullName" maxlength="100" required></div>
+   <div><label for="fatherName">পিতার নাম *</label><input id="fatherName" name="fatherName" maxlength="100" required></div>
+   <div><label for="mobile">মোবাইল নম্বর *</label><input id="mobile" name="mobile" type="tel" maxlength="20" required></div>
+   <div><label for="dateOfBirth">জন্মতারিখ *</label><input id="dateOfBirth" name="dateOfBirth" type="date" required></div>
+   <div><label for="occupation">পেশা *</label><input id="occupation" name="occupation" maxlength="80" required></div>
+   <div><label for="memberType">সদস্যের ধরন *</label>
+    <select id="memberType" name="memberType" required>
+     <option value="">নির্বাচন করুন</option>
+     <option>সাধারণ সদস্য</option><option>আজীবন সদস্য</option><option>দাতা সদস্য</option><option>স্বেচ্ছাসেবক সদস্য</option><option>উপদেষ্টা সদস্য</option>
+    </select>
+   </div>
+   <div class="span2"><label for="address">পূর্ণ ঠিকানা *</label><input id="address" name="address" maxlength="300" required></div>
+   <div><label for="nidNumber">NID নম্বর (ঐচ্ছিক)</label><input id="nidNumber" name="nidNumber" maxlength="30"></div>
+   <div><label for="birthRegistrationNumber">জন্মনিবন্ধন নম্বর (ঐচ্ছিক)</label><input id="birthRegistrationNumber" name="birthRegistrationNumber" maxlength="30"></div>
+   <div><label for="bloodGroup">রক্তের গ্রুপ (ঐচ্ছিক)</label>
+    <select id="bloodGroup" name="bloodGroup"><option value="">নির্বাচন করুন</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select>
+   </div>
+  </div>
+  <p class="demo">* চিহ্নিত ঘরগুলো পূরণ করা আবশ্যক। NID/জন্মনিবন্ধন নম্বর ঐচ্ছিক—প্রয়োজন না হলে ফাঁকা রাখুন। আপনার তথ্য কেবল অনুমোদিত ফাউন্ডেশন প্রশাসকের দেখা উচিত।</p>
+  <div class="form-actions"><button class="primary" id="submitApplicationBtn" type="submit">আবেদন জমা দিন</button><button class="backbtn" type="button" onclick="showSplash()">ফিরে যান</button></div>
+  <p id="formMessage" class="demo" role="status"></p>
+ </form>
+</div></section>
+
 <section id="login" class="login hidden"><div class="panel">
  <div class="brandmark" style="width:76px;height:76px;font-size:34px">☪</div>
  <h2>লগইন করুন</h2><div class="muted">ফিসাবিলিল্লাহ ফাউন্ডেশন ডিজিটাল ব্যবস্থাপনা</div>
@@ -53,6 +88,7 @@ footer{text-align:center;color:#758278;font-size:11px;margin-top:25px}
  <label for="pass">পাসওয়ার্ড</label><input id="pass" type="password" placeholder="পাসওয়ার্ড লিখুন">
  <button class="primary full" onclick="login()">লগইন</button>
  <div class="demo">ডেমো সংস্করণ: যেকোনো তথ্য দিয়ে প্রবেশ করা যাবে। এটি বাস্তব অ্যাকাউন্ট বা নিরাপদ সার্ভার-লগইন নয়।</div>
+ <button class="backbtn" onclick="showSplash()">ফিরে যান</button>
  </div></section>
 <section id="app" class="app hidden">
  <header class="topbar"><div class="brand">Fisabilillah Foundation<small>মানবতার সেবায়, আল্লাহর সন্তুষ্টির জন্য</small></div><div class="avatar">☪</div></header>
@@ -70,11 +106,13 @@ footer{text-align:center;color:#758278;font-size:11px;margin-top:25px}
   <h3 class="section-title">সর্বশেষ নোটিশ</h3><div class="notice">এখনো কোনো নোটিশ প্রকাশ করা হয়নি।</div>
   <footer>ঠিকানা: জামতলী, পিরিজপুর, বাজিতপুর, কিশোরগঞ্জ<br>© Fisabilillah Foundation</footer>
  </main>
- <nav class="bottom"><button onclick="home()"><span>⌂</span>হোম</button><button onclick="openPage('প্রকল্প','ফাউন্ডেশনের সকল প্রকল্প এখানে থাকবে।')"><span>🤲</span>প্রকল্প</button><button onclick="openPage('রিপোর্ট','আয়-ব্যয় ও কার্যক্রমের রিপোর্ট এখানে থাকবে।')"><span>▥</span>রিপোর্ট</button><button onclick="openPage('প্রোফাইল','নিজের নাম ও প্রোফাইল পরে যুক্ত করা যাবে।')"><span>♙</span>প্রোফাইল</button></nav>
+ <nav class="bottom"><button onclick="home()"><span>⌂</span>হোম</button><button onclick="openPage('প্রকল্প','ফাউন্ডেশনের সকল প্রকল্প এখানে থাকবে।')"><span>🤲</span>প্রকল্প</button><button onclick="openPage('রিপোর্ট','আয়-ব্যয় ও কার্যক্রমের রিপোর্ট এখানে দেখা যাবে।')"><span>▥</span>রিপোর্ট</button><button onclick="openPage('প্রোফাইল','নিজের নাম ও প্রোফাইল পরে যুক্ত করা যাবে।')"><span>♙</span>প্রোফাইল</button></nav>
 </section>
 <script>
 const $=id=>document.getElementById(id);
-function showLogin(){$('splash').classList.add('hidden');$('login').classList.remove('hidden')}
+function showSplash(){$('application').classList.add('hidden');$('login').classList.add('hidden');$('app').classList.add('hidden');$('splash').classList.remove('hidden')}
+function showLogin(){$('splash').classList.add('hidden');$('application').classList.add('hidden');$('login').classList.remove('hidden')}
+function showApplication(){$('splash').classList.add('hidden');$('login').classList.add('hidden');$('application').classList.remove('hidden')}
 function login(){if(!$('member').value.trim()||!$('pass').value.trim()){alert('মোবাইল নম্বর/সদস্য ID এবং পাসওয়ার্ড লিখুন।');return}$('login').classList.add('hidden');$('app').classList.remove('hidden')}
 function openPage(title,desc){$('content').innerHTML=`<section class="page"><button class="back" onclick="home()">← ফিরে যান</button><h2>${title}</h2><p>${desc}</p><p class="muted">এই অংশটি পরবর্তী উন্নয়ন ধাপে কার্যকর করা হবে।</p></section>`;window.scrollTo(0,0)}
 function home(){location.reload()}
@@ -82,11 +120,35 @@ let installPrompt;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('installBtn').classList.remove('hidden')});
 $('installBtn').addEventListener('click',async()=>{if(!installPrompt){alert('Chrome মেনু থেকে “Add to Home screen” নির্বাচন করুন।');return}installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installBtn').classList.add('hidden')});
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+$('applicationForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const btn=$('submitApplicationBtn'), msg=$('formMessage');
+ if(typeof window.saveFoundationApplication!=='function'){msg.textContent='Firebase সংযোগ প্রস্তুত হয়নি। পেজটি Refresh করে আবার চেষ্টা করুন।';return}
+ const data={
+  fullName:$('fullName').value.trim(),fatherName:$('fatherName').value.trim(),
+  mobile:$('mobile').value.trim(),dateOfBirth:$('dateOfBirth').value,
+  occupation:$('occupation').value.trim(),address:$('address').value.trim(),
+  memberType:$('memberType').value,
+  nidNumber:$('nidNumber').value.trim(),
+  birthRegistrationNumber:$('birthRegistrationNumber').value.trim(),
+  bloodGroup:$('bloodGroup').value
+ };
+ Object.keys(data).forEach(k=>{if(data[k]==='')delete data[k]});
+ btn.disabled=true;btn.textContent='জমা হচ্ছে...';msg.textContent='';
+ try{
+  await window.saveFoundationApplication(data);
+  msg.textContent='আপনার আবেদন সফলভাবে জমা হয়েছে। যাচাই শেষে ফাউন্ডেশন যোগাযোগ করবে।';
+  $('applicationForm').reset();
+ }catch(err){
+  console.error(err);
+  msg.textContent='আবেদন জমা হয়নি। ইন্টারনেট ও Firebase Rules পরীক্ষা করে আবার চেষ্টা করুন।';
+ }finally{btn.disabled=false;btn.textContent='আবেদন জমা দিন'}
+});
 </script>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyASi7O6ZpDSVtEACqbHlPiYtCECpGJENDs",
@@ -97,10 +159,17 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
     appId: "1:441554340093:web:629178e90714b54f0ad694"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+  const firebaseApp = initializeApp(firebaseConfig);
+  getAuth(firebaseApp);
+  const db = getFirestore(firebaseApp);
 
-  console.log("Firebase connected");
+  window.saveFoundationApplication = async function(formData) {
+    await addDoc(collection(db, "applications"), {
+      ...formData,
+      status: "pending",
+      createdAt: serverTimestamp()
+    });
+  };
+  console.log("Firebase connected; application form ready");
 </script>
 </body></html>
